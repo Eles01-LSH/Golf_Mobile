@@ -65,7 +65,10 @@ export default function FormatSection() {
           <p className="special-event__headline">{specialEvent.headline}</p>
           <p className="special-event__detail">{specialEvent.detail}</p>
         </div>
-        <IconExternalLink className="special-event__external" width={17} height={17} />
+        <span className="special-event__cta">
+          자세히 보기
+          <IconExternalLink className="special-event__external" width={17} height={17} />
+        </span>
       </a>
     </SectionShell>
   );

@@ -976,6 +976,7 @@ export const sponsorEntries: SponsorEntry[] = [
     quantity: "1줄 × 180",
     itemValue: 3_600_000,
   },
+  { id: "s41", no: 8, group: "외부 협찬", name: "김중수", role: "대구·경북도회장", note: "금일봉" },
 ];
 
 export function sponsorEntriesByGroup(group: SponsorGroup): SponsorEntry[] {

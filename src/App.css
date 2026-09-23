@@ -936,9 +936,19 @@
   flex: 1;
   min-width: 0;
 }
-.special-event__external {
+.special-event__cta {
   flex: none;
   align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: rgba(253, 252, 247, 0.85);
+}
+.special-event__external {
+  flex: none;
   color: rgba(253, 252, 247, 0.7);
 }
 .special-event__title {
