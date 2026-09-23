@@ -33,9 +33,7 @@ export default function App() {
             </div>
             <div className="info-mini">
               <div className="k">참가 규모</div>
-              <div className="v">
-                {eventInfo.teamCount}팀 {eventInfo.playerCount}명
-              </div>
+              <div className="v">{eventInfo.playerCount}명</div>
             </div>
           </div>
         </div>

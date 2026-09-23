@@ -3,7 +3,7 @@ import { IconCalendar, IconGroups, IconPeople, IconTrophy } from "./icons";
 
 const tabs = [
   { id: "schedule", label: "일정", icon: IconCalendar },
-  { id: "groups", label: "조 편성", icon: IconGroups },
+  { id: "groups", label: "코스 정보", icon: IconGroups },
   { id: "participants", label: "참가자", icon: IconPeople },
   { id: "awards", label: "시상안내", icon: IconTrophy },
 ];

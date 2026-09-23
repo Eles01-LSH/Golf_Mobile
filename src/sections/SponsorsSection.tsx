@@ -12,7 +12,7 @@ import {
   type SponsorGroup,
 } from "../data/programBookData";
 
-const groups: SponsorGroup[] = ["광주·전남도회 현금 협찬", "광주·전남도회 물품 협찬", "외부 협찬"];
+const groups: SponsorGroup[] = ["통우회 현금 협찬", "통우회 물품 협찬", "외부 협찬"];
 const PREVIEW_COUNT = 8;
 
 function groupTotalLabel(group: SponsorGroup): string {
@@ -48,8 +48,8 @@ export default function SponsorsSection() {
         <div className="sponsor-summary__label">총 협찬가액</div>
         <div className="sponsor-summary__amount">{sponsorGrandTotal.toLocaleString("ko-KR")}원</div>
         <div className="sponsor-summary__meta">
-          광주·전남도회 현금 {sponsorEntriesByGroup("광주·전남도회 현금 협찬").length}건 · 물품{" "}
-          {sponsorEntriesByGroup("광주·전남도회 물품 협찬").length}건 · 외부 협찬{" "}
+          통우회 현금 {sponsorEntriesByGroup("통우회 현금 협찬").length}건 · 물품{" "}
+          {sponsorEntriesByGroup("통우회 물품 협찬").length}건 · 외부 협찬{" "}
           {sponsorEntriesByGroup("외부 협찬").length}건
         </div>
       </div>
@@ -64,7 +64,7 @@ export default function SponsorsSection() {
             className={group === g ? "active" : ""}
             onClick={() => selectGroup(g)}
           >
-            {g.replace("광주·전남도회 ", "").replace(" 협찬", "")}
+            {g.replace("통우회 ", "").replace(" 협찬", "")}
           </button>
         ))}
       </div>

@@ -818,9 +818,8 @@
 }
 .committee-row .who {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  column-gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
   row-gap: 2px;
   min-width: 0;
 }
@@ -828,12 +827,12 @@
   font-size: 1.02rem;
   font-weight: 700;
   color: var(--ink);
-  white-space: nowrap;
 }
 .committee-row .desc {
   font-size: 0.78rem;
   color: var(--ink-soft);
   line-height: 1.4;
+  text-align: left;
 }
 
 /* ---------- info cards / rules ---------- */
@@ -993,9 +992,8 @@
 
 .award-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  gap: 6px;
   padding: 14px 4px;
   border-bottom: 1px solid var(--line);
 }
@@ -1017,14 +1015,19 @@
   color: var(--gold);
 }
 .award-row__detail {
-  text-align: right;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 6px;
+  row-gap: 2px;
+  text-align: left;
   font-size: 0.82rem;
   color: var(--ink-soft);
 }
 .award-row__count {
-  display: block;
   font-size: 0.72rem;
   color: var(--ink-faint);
+  white-space: nowrap;
 }
 
 /* ---------- sponsors ---------- */
@@ -1064,9 +1067,8 @@
 
 .sponsor-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  gap: 6px;
   padding: 13px 14px;
   border-radius: var(--radius-sm);
   background: var(--card);
@@ -1085,10 +1087,11 @@
   color: var(--ink-soft);
 }
 .sponsor-row__amount {
+  display: block;
   font-weight: 800;
   color: var(--accent-deep);
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+  text-align: left;
 }
 .sponsor-list {
   display: flex;
