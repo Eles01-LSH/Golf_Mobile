@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>영·호남 친선골프대회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3EEE1;
+    --surface:#FFFFFF;
+    --surface-soft:#EAE2CE;
+    --ink:#221F1B;
+    --ink-soft:#847C6C;
+    --gold:#C08A34;
+    --gold-soft:#EFDDB8;
+    --navy:#1B2A2E;
+    --navy-soft:#2A3D40;
+    --line:#E4DAC0;
+    --shadow:rgba(50,38,10,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171410;
+      --surface:#211D17;
+      --surface-soft:#2A251C;
+      --ink:#F1EBDD;
+      --ink-soft:#B3A88F;
+      --gold:#E0AC55;
+      --gold-soft:#3A2E1A;
+      --navy:#EFE7D6;
+      --navy-soft:#DCD2B8;
+      --line:#3A3325;
+      --shadow:rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171410;
+    --surface:#211D17;
+    --surface-soft:#2A251C;
+    --ink:#F1EBDD;
+    --ink-soft:#B3A88F;
+    --gold:#E0AC55;
+    --gold-soft:#3A2E1A;
+    --navy:#EFE7D6;
+    --navy-soft:#DCD2B8;
+    --line:#3A3325;
+    --shadow:rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans KR',-apple-system,'Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .page{
+    max-width:460px;
+    margin:0 auto;
+    position:relative;
+  }
+  .label-font{ font-family:'Barlow Condensed',sans-serif; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:20px 24px 76px;
+    overflow:hidden;
+    color:#fff;
+    isolation:isolate;
+  }
+  .hero-bg{
+    position:absolute; inset:0; z-index:-3;
+    background:linear-gradient(180deg,#7FAAB2 0%,#5C8B78 32%,#2E4B40 62%,#141F1B 100%);
+  }
+  .hero-glow{
+    position:absolute; z-index:-2;
+    top:-30px; right:-30px;
+    width:200px; height:200px; border-radius:50%;
+    background:radial-gradient(circle,rgba(255,244,214,.85),rgba(255,244,214,0) 70%);
+    filter:blur(4px);
+  }
+  .hero-hills{ position:absolute; inset:auto 0 0 0; z-index:-2; width:100%; height:auto; display:block; }
+  .hero-fairway{ position:absolute; z-index:-1; width:140%; left:-20%; bottom:-10px; height:auto; }
+
+  .hero-top{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .hero-tag{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;
+    font-size:.82rem;
+    letter-spacing:.1em;
+    background:rgba(10,14,12,.38);
+    padding:6px 14px;
+    border-radius:999px;
+    backdrop-filter:blur(2px);
+  }
+  .menu-btn{
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(10,14,12,.38);
+    border:none; color:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    padding:0;
+  }
+  .menu-btn:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+
+  .hero-eyebrow{
+    margin-top:38px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;
+    font-size:.92rem;
+    letter-spacing:.16em;
+    color:var(--gold);
+  }
+  .hero-title{
+    margin-top:10px;
+    font-weight:800;
+    font-size:clamp(2rem,9vw,2.5rem);
+    line-height:1.22;
+    text-wrap:balance;
+  }
+  .hero-meta{
+    margin-top:22px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 14px;
+    font-size:.85rem;
+    color:rgba(255,255,255,.88);
+  }
+  .hero-meta span{ display:inline-flex; align-items:center; gap:6px; }
+  .hero-meta svg{ flex:none; }
+
+  /* dropdown menu */
+  .menu-panel{
+    position:absolute;
+    top:64px; right:24px; z-index:30;
+    background:var(--surface);
+    border-radius:14px;
+    box-shadow:0 20px 44px -18px var(--shadow);
+    padding:8px;
+    min-width:160px;
+    display:none;
+    flex-direction:column;
+  }
+  .menu-panel.open{ display:flex; }
+  .menu-panel a{
+    padding:10px 14px;
+    border-radius:9px;
+    color:var(--ink);
+    text-decoration:none;
+    font-size:.9rem;
+    font-weight:500;
+  }
+  .menu-panel a:hover, .menu-panel a:focus-visible{ background:var(--surface-soft); }
+
+  /* ---------- floating tabbar ---------- */
+  .tabbar-wrap{
+    position:sticky;
+    top:0;
+    z-index:20;
+    margin:-56px 20px 0;
+    padding:8px;
+  }
+  .tabbar{
+    display:flex;
+    background:var(--surface);
+    border-radius:20px;
+    box-shadow:0 22px 46px -20px var(--shadow);
+    padding:6px;
+    gap:4px;
+  }
+  .tab{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    padding:10px 4px;
+    border:none;
+    background:transparent;
+    color:var(--ink-soft);
+    border-radius:16px;
+    cursor:pointer;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:.7rem;
+    font-weight:500;
+    transition:background .2s ease, color .2s ease;
+  }
+  .tab svg{ width:18px; height:18px; }
+  .tab.active{
+    background:var(--navy);
+    color:var(--bg);
+  }
+  .tab:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+  /* ---------- sections ---------- */
+  section{
+    padding:56px 24px 0;
+    scroll-margin-top:92px;
+  }
+  section:last-of-type{ padding-bottom:56px; }
+  .eyebrow{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;
+    font-size:.82rem;
+    letter-spacing:.16em;
+    color:var(--gold);
+  }
+  .head-row{
+    margin-top:8px;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+  }
+  h2{
+    margin:0;
+    font-size:1.32rem;
+    font-weight:800;
+    color:var(--ink);
+    text-wrap:balance;
+  }
+  .day-tag{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;
+    font-size:.8rem;
+    letter-spacing:.1em;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .lede{
+    margin-top:14px;
+    font-size:.9rem;
+    line-height:1.8;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- timeline ---------- */
+  .timeline{ margin-top:26px; }
+  .t-row{
+    display:grid;
+    grid-template-columns:52px 20px 1fr;
+    column-gap:12px;
+    position:relative;
+    padding-bottom:26px;
+  }
+  .t-row:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    left:62px; top:22px; bottom:-4px;
+    width:1px;
+    background:var(--line);
+  }
+  .t-row time{
+    font-weight:700;
+    font-size:.86rem;
+    color:var(--ink);
+    padding-top:1px;
+    font-variant-numeric:tabular-nums;
+  }
+  .t-dot{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--gold);
+    margin-top:4px;
+    box-shadow:0 0 0 4px var(--gold-soft);
+  }
+  .t-row h3{
+    margin:0;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .t-row .where{
+    margin-top:5px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:.8rem;
+    color:var(--ink-soft);
+  }
+  .t-row .where svg{ flex:none; color:var(--gold); }
+
+  .chip-card{
+    margin-top:6px;
+    background:var(--surface-soft);
+    border-radius:16px;
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .chip-card .k{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    letter-spacing:.06em;
+    font-size:.92rem;
+    color:var(--ink);
+  }
+  .chip-card .v{
+    font-size:.76rem;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+
+  /* ---------- participants ---------- */
+  .team-grid{
+    margin-top:24px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .team-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 14px;
+  }
+  .team-card .region{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;
+    letter-spacing:.1em;
+    font-size:.72rem;
+    color:var(--gold);
+  }
+  .team-card h3{
+    margin:6px 0 0;
+    font-size:1.05rem;
+    font-weight:800;
+  }
+  .team-card .stat{
+    margin-top:10px;
+    font-size:.8rem;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .team-card .stat b{ color:var(--ink); font-weight:600; }
+  .club-chips{
+    margin-top:32px;
+  }
+  .club-chips .label{
+    font-size:.78rem;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .chips span{
+    font-size:.78rem;
+    padding:7px 13px;
+    background:var(--surface-soft);
+    border-radius:999px;
+    color:var(--ink);
+  }
+
+  /* ---------- info list (format) ---------- */
+  .info-list{
+    margin-top:26px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    padding:0;
+  }
+  .info-list li{
+    list-style:none;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .info-list .ic{
+    flex:none;
+    width:36px; height:36px;
+    border-radius:11px;
+    background:var(--surface-soft);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gold);
+  }
+  .info-list .label{
+    font-size:.92rem;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:3px;
+  }
+  .info-list .detail{
+    font-size:.83rem;
+    color:var(--ink-soft);
+    line-height:1.65;
+  }
+
+  /* ---------- awards ---------- */
+  .prizes{
+    margin-top:26px;
+    display:flex;
+    flex-direction:column;
+    border-top:1px solid var(--line);
+  }
+  .prize-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:15px 0;
+    border-bottom:1px solid var(--line);
+    font-size:.9rem;
+  }
+  .prize-row .name{ color:var(--ink); font-weight:600; }
+  .prize-row .name.top{
+    color:var(--gold);
+    font-weight:800;
+  }
+  .prize-row .detail{ color:var(--ink-soft); font-size:.82rem; text-align:right; }
+
+  /* ---------- closing ---------- */
+  .closing{
+    text-align:center;
+    padding:64px 24px 48px;
+  }
+  .closing .mark{ color:var(--gold); margin-bottom:16px; }
+  .closing p{ font-size:.88rem; line-height:1.9; color:var(--ink-soft); margin:0; }
+  .closing .name{
+    margin-top:16px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:1.1rem;
+    letter-spacing:.04em;
+    color:var(--ink);
+  }
+  .closing .yr{
+    margin-top:6px;
+    font-size:.7rem;
+    letter-spacing:.14em;
+    color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <svg class="hero-hills" viewBox="0 0 460 200" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 120 C90 60 160 150 240 100 C320 55 380 110 460 70 L460 200 L0 200 Z" fill="#16241F" opacity=".9"/>
+      <path d="M0 150 C110 110 200 190 300 140 C360 110 410 150 460 130 L460 200 L0 200 Z" fill="#0F1A16"/>
+    </svg>
+    <svg class="hero-fairway" viewBox="0 0 460 140" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="fw" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#8FB672"/>
+          <stop offset="1" stop-color="#3F6B47"/>
+        </linearGradient>
+      </defs>
+      <path d="M-20 30 C120 10 160 90 300 70 C380 58 420 95 480 60" stroke="url(#fw)" stroke-width="34" fill="none" stroke-linecap="round" opacity=".85"/>
+    </svg>
+
+    <div class="hero-top">
+      <span class="hero-tag">2026 · JEONBUK</span>
+      <button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="메뉴 열기">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+
+    <p class="hero-eyebrow label-font">THE 24TH FRIENDSHIP CUP</p>
+    <h1 class="hero-title">영·호남<br>친선골프대회</h1>
+    <p class="hero-meta">
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/></svg>2026. 10. 24.</span>
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg>골프존카운티 드래곤</span>
+    </p>
+
+    <nav class="menu-panel" id="menuPanel">
+      <a href="#schedule" data-target="schedule">행사일정</a>
+      <a href="#participants" data-target="participants">참가자</a>
+      <a href="#format" data-target="format">경기방식</a>
+      <a href="#awards" data-target="awards">시상안내</a>
+    </nav>
+  </header>
+
+  <div class="tabbar-wrap">
+    <div class="tabbar" role="tablist" aria-label="섹션 이동">
+      <button class="tab" data-target="schedule">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/></svg>
+        행사일정
+      </button>
+      <button class="tab" data-target="participants">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.1-4.3 4.1-6.6 7-6.6S18.9 15.7 20 20"/></svg>
+        참가자
+      </button>
+      <button class="tab" data-target="format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 20V4"/><path d="M6 5l12 3.4L6 12"/></svg>
+        경기방식
+      </button>
+      <button class="tab" data-target="awards">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10v3.5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H4v1.5A3.5 3.5 0 0 0 7.5 10"/><path d="M17 5h3v1.5A3.5 3.5 0 0 1 16.5 10"/><path d="M12 13v3.2M9 19.5h6M9 19.5c0-1.15.9-1.9 3-1.9s3 .75 3 1.9"/></svg>
+        시상안내
+      </button>
+    </div>
+  </div>
+
+  <section id="schedule">
+    <p class="eyebrow label-font">PROGRAM</p>
+    <div class="head-row">
+      <h2>오늘의 주요 일정</h2>
+      <span class="day-tag label-font">SATURDAY</span>
+    </div>
+
+    <div class="timeline">
+      <article class="t-row">
+        <time>09:00</time>
+        <div class="t-dot" aria-hidden="true"></div>
+        <div>
+          <h3>등록 및 접수</h3>
+          <p class="where"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.2"/></svg>클럽하우스 로비</p>
+        </div>
+      </article>
+      <article class="t-row">
+        <time>10:10</time>
+        <div class="t-dot" aria-hidden="true"></div>
+        <div>
+          <h3>기념사진 촬영</h3>
+          <p class="where"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.2"/></svg>퍼팅연습장</p>
+        </div>
+      </article>
+      <article class="t-row">
+        <time>11:00</time>
+        <div class="t-dot" aria-hidden="true"></div>
+        <div>
+          <h3>Tee off · 영호남 화합의 샷</h3>
+          <p class="where"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.2"/></svg>드래곤 · 레이크 · 스카이</p>
+        </div>
+      </article>
+      <article class="t-row">
+        <time>15:30</time>
+        <div class="t-dot" aria-hidden="true"></div>
+        <div>
+          <h3>라운딩 종료</h3>
+          <p class="where"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.2"/></svg>클럽하우스 집결</p>
+        </div>
+      </article>
+      <article class="t-row">
+        <time>16:00</time>
+        <div class="t-dot" aria-hidden="true"></div>
+        <div>
+          <h3>오찬 및 시상식</h3>
+          <p class="where"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.2"/></svg>그랜드볼룸</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="chip-card">
+      <span class="k label-font">YHFC · FRIENDSHIP CUP</span>
+      <span class="v">제24회 공식 프로그램</span>
+    </div>
+  </section>
+
+  <section id="participants">
+    <p class="eyebrow label-font">TEAM</p>
+    <div class="head-row">
+      <h2>참가팀 소개</h2>
+    </div>
+    <p class="lede">영남과 호남을 대표하는 두 팀이<br>우정을 걸고 겨루는 친선 무대입니다.</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <p class="region label-font">YEONGNAM</p>
+        <h3>영남 대표팀</h3>
+        <p class="stat">주장 <b>박준혁</b><br>참가 인원 <b>32명</b></p>
+      </div>
+      <div class="team-card">
+        <p class="region label-font">HONAM</p>
+        <h3>호남 대표팀</h3>
+        <p class="stat">주장 <b>최영도</b><br>참가 인원 <b>32명</b></p>
+      </div>
+    </div>
+
+    <div class="club-chips">
+      <p class="label">참가 클럽</p>
+      <div class="chips">
+        <span>대구OB회</span>
+        <span>부산라이온스</span>
+        <span>울산파인</span>
+        <span>광주필드클럽</span>
+        <span>전주그린회</span>
+        <span>목포하버골프</span>
+        <span>+2개 클럽</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="format">
+    <p class="eyebrow label-font">RULES</p>
+    <div class="head-row">
+      <h2>경기 방식</h2>
+    </div>
+
+    <ul class="info-list">
+      <li>
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></span>
+        <div>
+          <p class="label">경기 방식</p>
+          <p class="detail">18홀 스트로크 플레이, 신페리오 방식 핸디캡 적용</p>
+        </div>
+      </li>
+      <li>
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.1-4.3 4.1-6.6 7-6.6S18.9 15.7 20 20"/></svg></span>
+        <div>
+          <p class="label">조 편성</p>
+          <p class="detail">4인 1조, 영남·호남 혼합 편성으로 대회본부 사전 공지</p>
+        </div>
+      </li>
+      <li>
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10v3.5a5 5 0 0 1-10 0V4Z"/><path d="M12 13v5M9 19h6"/></svg></span>
+        <div>
+          <p class="label">단체전 산정</p>
+          <p class="detail">각 조 상위 3인 스코어 합산, 지역별 합계로 순위 결정</p>
+        </div>
+      </li>
+      <li>
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M5 8l2.5 2.5M19 8l-2.5 2.5M4 15h16M12 15v6"/></svg></span>
+        <div>
+          <p class="label">우천시</p>
+          <p class="detail">9홀 이상 진행 시 정식 경기로 인정, 스코어는 그대로 반영</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="awards">
+    <p class="eyebrow label-font">AWARDS</p>
+    <div class="head-row">
+      <h2>시상 안내</h2>
+    </div>
+
+    <div class="prizes">
+      <div class="prize-row"><span class="name top">단체전 우승기</span><span class="detail">영호남 통합 우승컵</span></div>
+      <div class="prize-row"><span class="name">개인전 메달리스트 (남 · 여)</span><span class="detail">각 1명</span></div>
+      <div class="prize-row"><span class="name">준우승</span><span class="detail">상패 · 부상</span></div>
+      <div class="prize-row"><span class="name">롱기스트</span><span class="detail">남 · 여 각 1명</span></div>
+      <div class="prize-row"><span class="name">니어리스트 핀</span><span class="detail">파3 전 홀</span></div>
+      <div class="prize-row"><span class="name">행운상</span><span class="detail">추첨 다수</span></div>
+    </div>
+  </section>
+
+  <footer class="closing">
+    <svg class="mark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 4h10v3.5a5 5 0 0 1-10 0V4Z"/><path d="M12 13v5M9 19h6"/></svg>
+    <p>영남과 호남이 하나 되어 나누는 하루,<br>귀하와 함께해서 더욱 뜻깊은 자리가 되겠습니다.</p>
+    <p class="name label-font">YEONGHONAM FRIENDSHIP CUP</p>
+    <p class="yr label-font">제24회 · 2026</p>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    var menuLinks = Array.prototype.slice.call(document.querySelectorAll('.menu-panel a'));
+    var sections = tabs.map(function(t){ return document.getElementById(t.dataset.target); });
+
+    function go(id){
+      var el = document.getElementById(id);
+      if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){ go(t.dataset.target); });
+    });
+    menuLinks.forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        closeMenu();
+        go(a.dataset.target);
+      });
+    });
+
+    var menuBtn = document.getElementById('menuBtn');
+    var menuPanel = document.getElementById('menuPanel');
+    function closeMenu(){
+      menuPanel.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    menuBtn.addEventListener('click', function(){
+      var open = menuPanel.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(e){
+      if(!menuPanel.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)){
+        closeMenu();
+      }
+    });
+
+    if('IntersectionObserver' in window){
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          var idx = sections.indexOf(entry.target);
+          if(idx === -1) return;
+          if(entry.isIntersecting){
+            tabs.forEach(function(t){ t.classList.remove('active'); });
+            tabs[idx].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+      sections.forEach(function(s){ if(s) observer.observe(s); });
+    } else {
+      tabs[0].classList.add('active');
+    }
+  })();
+</script>
+</body>
+</html>

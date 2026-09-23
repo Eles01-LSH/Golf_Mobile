@@ -1,0 +1,124 @@
+:root {
+  /* 오가스타 그린 팔레트 */
+  --bg: #ffffff; /* 메인 배경: 화이트 */
+  --bg-ivory: #f1ecdd; /* 보조 배경: 진한 아이보리 */
+  --card: #ffffff;
+  --card-ivory: #fbfaf6;
+  --ink: #1c2620;
+  --ink-soft: #5b6b60;
+  --ink-faint: #8c978e;
+  --accent: #1b4332; /* 포인트: 진한 파인그린 (마스터즈 그린) */
+  --accent-deep: #143325;
+  --accent-tint: #e3ece6;
+  --gold: #c9a227; /* 포인트: 진한 샴페인 골드 */
+  --gold-tint: #f3e7c4;
+  --line: #e4e0d2;
+  --shadow: rgba(30, 38, 28, 0.1);
+
+  --assoc-guest: #a13f3f; /* 초청인사: 버건디 */
+  --assoc-guest-bg: #f2e0e0;
+  --assoc-tongwoo: #b3822f; /* 통우회(광주·전남): 골드/오렌지 */
+  --assoc-tongwoo-bg: #f3e6cc;
+  --assoc-jeongnok: #4f7a5c; /* 정록회(부산·울산·경남): 그린 */
+  --assoc-jeongnok-bg: #e2ede2;
+  --assoc-jeongtong: #6d5a96; /* 정통회(대구·경북): 퍼플 */
+  --assoc-jeongtong-bg: #e9e3f1;
+  --assoc-jeontong: #3c5a78; /* 전통회(전북): 네이비/블루 */
+  --assoc-jeontong-bg: #e2e8ef;
+
+  --radius-card: 16px;
+  --radius-sm: 12px;
+  --content-max: 560px;
+
+  color-scheme: light;
+  font-family:
+    "PretendardVariable",
+    "Noto Sans KR",
+    -apple-system,
+    "Malgun Gothic",
+    sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.serif {
+  font-family: "Noto Serif KR", serif;
+}
+
+.label-font {
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.app-shell {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page {
+  padding: 0 18px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
