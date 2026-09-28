@@ -933,7 +933,7 @@ export const sponsorEntries: SponsorEntry[] = [
     itemValue: 500_000,
   },
 
-  // ---- 외부 협찬 (7건, 현금·물품 혼합) ----
+  // ---- 외부 협찬 (9건, 현금·물품 혼합) ----
   { id: "s34", no: 1, group: "외부 협찬", name: "이재식", role: "중앙회장", amount: 1_000_000, note: "금일봉" },
   { id: "s35", no: 2, group: "외부 협찬", name: "강정훈", role: "조합이사장", amount: 1_000_000, note: "금일봉" },
   { id: "s36", no: 3, group: "외부 협찬", name: "남궁훈", role: "경기도회장", amount: 500_000, note: "금일봉" },
@@ -977,6 +977,7 @@ export const sponsorEntries: SponsorEntry[] = [
     itemValue: 3_600_000,
   },
   { id: "s41", no: 8, group: "외부 협찬", name: "김중수", role: "대구·경북도회장", note: "금일봉" },
+  { id: "s42", no: 9, group: "외부 협찬", name: "윤풍식", role: "장학재단이사장", note: "금일봉" }, // 확인 필요: 금일봉 금액 미전달
 ];
 
 export function sponsorEntriesByGroup(group: SponsorGroup): SponsorEntry[] {
