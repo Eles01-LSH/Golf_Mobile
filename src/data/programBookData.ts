@@ -878,18 +878,18 @@ export const sponsorEntries: SponsorEntry[] = [
   { id: "s14", no: 14, group: "현금 협찬", name: "구학인", company: "㈜구성이엔씨", amount: 1_000_000 },
   { id: "s15", no: 15, group: "현금 협찬", name: "이건국", company: "㈜정인이엔시", amount: 500_000 },
   { id: "s16", no: 16, group: "현금 협찬", name: "김정곤", company: "대신네트웍스㈜", amount: 500_000 },
-  { id: "s17", no: 17, group: "현금 협찬", name: "김만웅", role: "광주전남도 전 회장", amount: 1_000_000 },
+  { id: "s17", no: 17, group: "현금 협찬", name: "김만웅", role: "광주전남도 전 회장", amount: 1_000_000, note: "금일봉" },
   { id: "s18", no: 18, group: "현금 협찬", name: "최공호", company: "㈜엔탑엔지니어링", amount: 500_000 },
   { id: "s19", no: 19, group: "현금 협찬", name: "윤종아", company: "아라텔레콤(유)", amount: 500_000 },
   { id: "s20", no: 20, group: "현금 협찬", name: "김필호", company: "㈜원네트웍", amount: 300_000 },
-  { id: "s21", no: 21, group: "현금 협찬", name: "이재식", role: "중앙회장", amount: 1_000_000 },
-  { id: "s22", no: 22, group: "현금 협찬", name: "강정훈", role: "조합이사장", amount: 1_000_000 },
-  { id: "s23", no: 23, group: "현금 협찬", name: "남궁훈", role: "경기도회장", amount: 500_000 },
-  { id: "s24", no: 24, group: "현금 협찬", name: "김중수", role: "대구경북도회장", amount: 500_000 },
-  { id: "s25", no: 25, group: "현금 협찬", name: "양경호", role: "광주전남도회 전 회장단", amount: 300_000 },
-  { id: "s26", no: 26, group: "현금 협찬", name: "손대겸", role: "광주전남도회 전 회장단", amount: 300_000 },
-  { id: "s27", no: 27, group: "현금 협찬", name: "이영만", role: "광주전남도회 전 회장단", amount: 300_000 },
-  { id: "s28", no: 28, group: "현금 협찬", name: "이종모", role: "광주전남도회 전 회장단", amount: 300_000 },
+  { id: "s21", no: 21, group: "현금 협찬", name: "이재식", role: "중앙회장", amount: 1_000_000, note: "금일봉" },
+  { id: "s22", no: 22, group: "현금 협찬", name: "강정훈", role: "조합이사장", amount: 1_000_000, note: "금일봉" },
+  { id: "s23", no: 23, group: "현금 협찬", name: "남궁훈", role: "경기도회장", amount: 500_000, note: "금일봉" },
+  { id: "s24", no: 24, group: "현금 협찬", name: "김중수", role: "대구경북도회장", amount: 500_000, note: "금일봉" },
+  { id: "s25", no: 25, group: "현금 협찬", name: "양경호", role: "광주전남도회 전 회장단", amount: 300_000, note: "금일봉" },
+  { id: "s26", no: 26, group: "현금 협찬", name: "손대겸", role: "광주전남도회 전 회장단", amount: 300_000, note: "금일봉" },
+  { id: "s27", no: 27, group: "현금 협찬", name: "이영만", role: "광주전남도회 전 회장단", amount: 300_000, note: "금일봉" },
+  { id: "s28", no: 28, group: "현금 협찬", name: "이종모", role: "광주전남도회 전 회장단", amount: 300_000, note: "금일봉" },
   { id: "s29", no: 29, group: "현금 협찬", name: "윤풍식", role: "광주전남도회 전 회장 · 장학재단이사장", amount: 1_000_000 },
   { id: "s30", no: 30, group: "현금 협찬", name: "김정훈", company: "한양공영㈜", amount: 500_000 },
   { id: "s31", no: 31, group: "현금 협찬", name: "서영균", company: "동양인터엠", amount: 500_000 },
@@ -973,6 +973,7 @@ export function formatSponsorEntryValue(entry: SponsorEntry): string {
     const value = entry.itemValue != null ? ` (협찬가액 ${entry.itemValue.toLocaleString("ko-KR")}원)` : "";
     return `${entry.item} ${entry.quantity ?? ""}${value}`.trim();
   }
+  if (entry.note === "금일봉") return "금일봉";
   return entry.amount != null ? `${entry.amount.toLocaleString("ko-KR")}원` : "";
 }
 

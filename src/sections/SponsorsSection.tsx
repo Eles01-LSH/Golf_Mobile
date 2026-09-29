@@ -92,9 +92,9 @@ export default function SponsorsSection() {
                   <td>{entry.no}</td>
                   <td>
                     <div>{entry.name}</div>
-                    {entry.company || entry.role || entry.note ? (
+                    {entry.company || entry.role ? (
                       <div className="sponsor-table__sub">
-                        {[entry.company, entry.role, entry.note].filter(Boolean).join(" · ")}
+                        {[entry.company, entry.role].filter(Boolean).join(" · ")}
                       </div>
                     ) : null}
                   </td>

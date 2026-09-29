@@ -8,9 +8,9 @@ export default function SponsorRow({ entry }: { entry: SponsorEntry }) {
         <div className="sponsor-row__company">
           {entry.no}. {entry.name}
         </div>
-        {entry.company || entry.role || entry.note ? (
+        {entry.company || entry.role ? (
           <div className="sponsor-row__name">
-            {[entry.company, entry.role, entry.note].filter(Boolean).join(" · ")}
+            {[entry.company, entry.role].filter(Boolean).join(" · ")}
           </div>
         ) : null}
       </div>
