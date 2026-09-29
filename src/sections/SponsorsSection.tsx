@@ -12,7 +12,7 @@ import {
   type SponsorGroup,
 } from "../data/programBookData";
 
-const groups: SponsorGroup[] = ["통우회 현금 협찬", "통우회 물품 협찬", "외부 협찬"];
+const groups: SponsorGroup[] = ["현금 협찬", "물품 협찬"];
 const PREVIEW_COUNT = 8;
 
 function groupTotalLabel(group: SponsorGroup): string {
@@ -48,9 +48,7 @@ export default function SponsorsSection() {
         <div className="sponsor-summary__label">총 협찬가액</div>
         <div className="sponsor-summary__amount">{sponsorGrandTotal.toLocaleString("ko-KR")}원</div>
         <div className="sponsor-summary__meta">
-          통우회 현금 {sponsorEntriesByGroup("통우회 현금 협찬").length}건 · 물품{" "}
-          {sponsorEntriesByGroup("통우회 물품 협찬").length}건 · 외부 협찬{" "}
-          {sponsorEntriesByGroup("외부 협찬").length}건
+          현금 {sponsorEntriesByGroup("현금 협찬").length}건 · 물품 {sponsorEntriesByGroup("물품 협찬").length}건
         </div>
       </div>
 
@@ -64,7 +62,7 @@ export default function SponsorsSection() {
             className={group === g ? "active" : ""}
             onClick={() => selectGroup(g)}
           >
-            {g.replace("통우회 ", "").replace(" 협찬", "")}
+            {g.replace(" 협찬", "")}
           </button>
         ))}
       </div>
@@ -84,8 +82,7 @@ export default function SponsorsSection() {
             <thead>
               <tr>
                 <th>순번</th>
-                <th>성명 / 구분</th>
-                <th>직함 · 비고</th>
+                <th>성명</th>
                 <th>협찬 내용</th>
               </tr>
             </thead>
@@ -94,10 +91,13 @@ export default function SponsorsSection() {
                 <tr key={entry.id}>
                   <td>{entry.no}</td>
                   <td>
-                    {entry.name}
-                    {entry.company ? ` (${entry.company})` : ""}
+                    <div>{entry.name}</div>
+                    {entry.company || entry.role || entry.note ? (
+                      <div className="sponsor-table__sub">
+                        {[entry.company, entry.role, entry.note].filter(Boolean).join(" · ")}
+                      </div>
+                    ) : null}
                   </td>
-                  <td>{[entry.role, entry.note].filter(Boolean).join(" · ")}</td>
                   <td>{formatSponsorEntryValue(entry)}</td>
                 </tr>
               ))}

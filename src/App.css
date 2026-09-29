@@ -1129,6 +1129,12 @@
   font-weight: 700;
   font-size: 0.76rem;
 }
+.sponsor-table__sub {
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
 
 @media (min-width: 768px) {
   .sponsor-list--mobile-only {
